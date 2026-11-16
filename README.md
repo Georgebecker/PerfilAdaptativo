@@ -220,7 +220,7 @@ O código é livre (MIT): use, copie, mude e redistribua. Se quiser retribuir, a
 melhor forma é abrir uma Issue apontando um problema ou mandar um Pull Request
 pequeno — e dizer onde o guia travou para você.
 
-## Topics sugeridos
+## Topics do repositório
 
 ```text
 python, readme-generator, github-profile, data-quality, local-first,
