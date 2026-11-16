@@ -1,0 +1,47 @@
+# =========================================================
+#  Perfil de exemplo — feito para rodar sem rede e servir de modelo
+# =========================================================
+#
+# Este arquivo é fictício: "Ana Exemplo" não existe. Ele mostra o formato que
+# `python perfil.py iniciar` grava em data/processed/perfil.yaml, com os campos
+# que o README usa.
+#
+# Como usar como ponto de partida:
+#   1. copie este arquivo para data/processed/perfil.yaml
+#   2. troque os dados pelos seus (ou rode `python perfil.py iniciar`)
+#   3. python perfil.py validar
+#   4. python perfil.py gerar --offline
+#   5. python perfil.py preview
+#
+# O que NUNCA entra aqui: senha, token, chave de API. O programa recusa.
+
+versao: 1
+
+nome: Ana Exemplo
+github: ana-exemplo
+bio: "Python, dados e automação — gosto de deixar planilha fora do processo"
+local: Florianópolis/SC
+site: https://ana-exemplo.example.com
+
+links:
+  - rotulo: LinkedIn
+    url: https://www.linkedin.com/in/ana-exemplo
+  - rotulo: Blog
+    url: https://ana-exemplo.example.com/blog
+
+projetos:
+  - repo: exemplo-etl
+    destaque: true
+    prova: "Pipeline que baixa indicadores públicos, valida e grava em SQLite"
+    stack: ["Python", "ETL", "SQLite"]
+    status: publicado
+  - repo: exemplo-bot
+    destaque: true
+    prova: "Bot de Telegram que responde a cotação do dia"
+    stack: ["Python", "Telegram", "API"]
+    status: MVP
+  - repo: exemplo-painel
+    destaque: false
+    prova: "Painel estático com dados de saúde pública"
+    stack: ["HTML", "Dados"]
+    status: rascunho

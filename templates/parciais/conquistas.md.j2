@@ -1,0 +1,11 @@
+{# Parcial: conquistas declaradas pelo dono + marcos medidos a partir do perfil.
+   Cada marco automático carrega o número que o comprova; marco não atingido
+   simplesmente não aparece. #}
+{% if conquistas %}
+## Conquistas
+
+{% for item in conquistas %}
+- **{{ item.titulo }}** — {{ item.detalhe }}
+{% endfor %}
+
+{% endif %}

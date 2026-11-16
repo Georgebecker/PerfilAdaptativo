@@ -1,0 +1,112 @@
+{# =========================================================
+   Template "Dark Terminal" — estética de terminal, banner SVG e cores fortes.
+
+   Desenho original deste projeto (licença MIT). Referência de estilo:
+   https://github.com/morgan-mordata/morgan-mordata — nenhum arquivo foi copiado;
+   o banner é gerado por perfil_adaptativo/graficos.py com texto do próprio perfil.
+
+   O bloco "console" existe para dar contexto a quem lê: mostra nome, bio e a
+   lista de projetos como se fossem respostas de comando. O conteúdo é o MESMO
+   das tabelas usadas nos outros templates — só a arrumação muda.
+
+   Espaçamento: trim_blocks/lstrip_blocks estão ligados; cada `{% endfor %}`
+   precisa de linha vazia em seguida para não colar texto no bloco abaixo.
+   ========================================================= #}
+{% if banner %}
+<p align="center">
+  <img src="{{ banner }}" alt="Banner de terminal com o nome {{ nome }}" width="720">
+</p>
+{% endif %}
+```console
+$ whoami
+{{ nome }}
+
+$ cat bio.txt
+{% if bio %}{{ bio }}{% else %}(bio ainda não preenchida){% endif %}
+
+{% if local %}
+$ cat local.txt
+{{ local }}
+
+{% endif %}
+$ ls projetos/
+{% if destaques or outros %}{% for projeto in destaques %}{{ projeto.nome }}/  {% endfor %}{% for projeto in outros %}{{ projeto.nome }}/  {% endfor %}{% else %}nenhum projeto cadastrado ainda{% endif %}
+
+$ echo "modo: {{ modo_curto }}"
+modo: {{ modo_curto }}
+```
+
+{% if badges_fortes %}
+<p align="center">
+{% for badge in badges_fortes %}
+  <img src="{{ badge.url }}" alt="{{ badge.rotulo }}">
+{% endfor %}
+</p>
+
+{% endif %}
+{% if destaques %}
+## Projetos em destaque
+
+{% for projeto in destaques %}
+### `{{ projeto.nome }}`
+
+{% if projeto.prova %}{{ projeto.prova }}
+
+{% endif %}{% if projeto.meta %}{{ projeto.meta }}{% endif %}{% if projeto.link_texto %}{% if projeto.meta %} · {% endif %}{{ projeto.link_texto }}{% endif %}
+
+
+{% endfor %}
+{% endif %}
+{% if outros %}
+## Outros projetos
+
+{% for projeto in outros %}
+### `{{ projeto.nome }}`
+
+{% if projeto.prova %}{{ projeto.prova }}
+
+{% endif %}{% if projeto.meta %}{{ projeto.meta }}{% endif %}{% if projeto.link_texto %}{% if projeto.meta %} · {% endif %}{{ projeto.link_texto }}{% endif %}
+
+
+{% endfor %}
+{% endif %}
+{% if stack_consolidada %}
+## Stack
+
+{% for tecnologia in stack_consolidada %}
+- `{{ tecnologia }}`
+{% endfor %}
+
+{% endif %}
+{% include "parciais/estatisticas.md.j2" %}
+{% include "parciais/conquistas.md.j2" %}
+{% if graficos %}
+## Gráficos
+
+{% for grafico in graficos %}
+![{{ grafico.titulo }}]({{ grafico.arquivo }})
+
+*{{ grafico.legenda }}*
+
+{% endfor %}
+{% endif %}
+## Contato
+
+- GitHub: <https://github.com/{{ github }}>
+{% if site %}
+- Site: <{{ site }}>
+{% endif %}
+{% for link in links %}
+- {{ link.rotulo }}: <{{ link.url }}>
+{% endfor %}
+{% if not modo_perfil %}
+
+## Como este README é gerado
+
+Perfil local validado campo por campo, com banner e gráficos desenhados em SVG
+pela própria ferramenta. Nada é publicado sem duas aprovações.
+{% endif %}
+
+---
+
+Gerado localmente por PerfilAdaptativo

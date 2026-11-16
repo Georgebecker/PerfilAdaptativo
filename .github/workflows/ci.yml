@@ -1,0 +1,57 @@
+# Testes + geração do exemplo offline, a cada push e a cada pull request.
+#
+# Por que este workflow substituiu o antigo "atualiza README": a publicação
+# automática contradizia a regra do projeto (local primeiro, dois aceites e só
+# então upload) e o commit diário sobrescrevia a documentação do repositório.
+# Aqui nada é commitado: o README de exemplo sai como artefato para inspeção.
+name: Testes e exemplo offline
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+# Só leitura: esta esteira não escreve no repositório.
+permissions:
+  contents: read
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+
+      - name: Instalar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Rodar os testes
+        # Nenhum teste toca a rede: a API do GitHub aparece como dublê.
+        run: pytest -q
+
+      - name: Gerar o README do exemplo (sem rede)
+        # --template explícito: sem ele, um terminal interativo abriria o menu e a
+        # esteira ficaria esperando resposta. O visual escolhido é o padrão.
+        run: |
+          python perfil.py gerar --perfil examples/perfil.exemplo.yaml --saida saidas/exemplo --template minimal --offline
+          python perfil.py preview --perfil examples/perfil.exemplo.yaml --saida saidas/exemplo --html saidas/exemplo/preview.html
+
+      - name: Conferir que o README e o gráfico existem
+        run: |
+          test -s saidas/exemplo/README.md
+          test -s saidas/exemplo/graficos/tecnologias.svg
+          test -s saidas/exemplo/relatorio.json
+
+      - name: Publicar os arquivos gerados como artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: perfil-exemplo
+          path: saidas/exemplo
+          if-no-files-found: error

@@ -1,0 +1,22 @@
+# =========================================================
+#  PerfilAdaptativo — dependências Python
+#  Instalar com: pip install -r requirements.txt
+# =========================================================
+#
+# O verificador do agente (meu-loop-agente/verificar_iteracao.py) usa
+# somente a biblioteca padrão do Python. As dependências abaixo existem
+# para o gerador de README (generate.py, perfil.py), para a pré-visualização
+# local (Markdown -> HTML) e para os testes.
+#
+# Versões fixadas de propósito: o mesmo par (versão da biblioteca) precisa
+# rodar na máquina local e na GitHub Action, senão o README muda de formato
+# sem ninguém alterar o código — como um bolo que sai diferente a cada forno.
+#
+# Alvo: Python 3.11 (a versão usada pela Action). O Python local pode ser
+# mais novo; nesse caso o pip pode reaproveitar versões já instaladas.
+
+requests==2.32.3
+Jinja2==3.1.4
+PyYAML==6.0.2
+Markdown==3.7
+pytest==8.3.3

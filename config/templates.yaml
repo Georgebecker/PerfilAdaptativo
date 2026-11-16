@@ -1,0 +1,37 @@
+# =========================================================
+#  Catálogo de templates visuais do README
+# =========================================================
+#
+# Este arquivo é a fonte única de verdade sobre "quais visuais existem".
+# O gerador lê daqui antes de renderizar: se o id não estiver na lista, ele
+# recusa com mensagem clara em vez de gerar arquivo vazio.
+#
+# Todos os templates recebem o MESMO contexto (nome, bio, links, projetos,
+# gráficos). Trocar de visual muda a arrumação, nunca o conteúdo — assim o dado
+# auditado é sempre o mesmo, independente da aparência escolhida.
+#
+# `license: MIT` refere-se ao template deste projeto. Os repositórios em
+# `inspired_by` são referência de estilo; nenhum arquivo deles foi copiado —
+# ver THIRD_PARTY_NOTICES.md.
+
+templates:
+  - id: minimal
+    name: "Minimal Clean"
+    description: "Layout limpo, focado em texto e tabelas. Ideal para iniciantes."
+    path: "templates/minimal/profile.md.j2"
+    license: "MIT"
+    inspired_by: "https://github.com/DMS-ranil/Profile-Templetes"
+
+  - id: dark-terminal
+    name: "Dark Terminal"
+    description: "Estética de terminal escuro, com banner SVG e badges em cores fortes."
+    path: "templates/dark-terminal/profile.md.j2"
+    license: "MIT"
+    inspired_by: "https://github.com/morgan-mordata/morgan-mordata"
+
+  - id: animated
+    name: "Animated Portfolio"
+    description: "Cabeçalho centralizado, banner SVG animado e cartões de projeto."
+    path: "templates/animated/profile.md.j2"
+    license: "MIT"
+    inspired_by: "https://github.com/Jenesyx/pretty-github"

@@ -1,0 +1,13 @@
+{# Parcial: estatísticas medidas do próprio perfil.
+   Incluída pelos três visuais. Se não houver número nenhum, a seção não aparece:
+   seção vazia ocupa espaço e não informa nada. #}
+{% if estatisticas %}
+## Estatísticas
+
+| Métrica | Valor |
+|---|---|
+{% for item in estatisticas %}
+| {{ item.rotulo }} | {{ item.valor }} |
+{% endfor %}
+
+{% endif %}

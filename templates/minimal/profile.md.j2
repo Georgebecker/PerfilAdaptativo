@@ -1,0 +1,110 @@
+{# =========================================================
+   Template "Minimal Clean" — layout limpo, focado em texto e tabelas.
+
+   Desenho original deste projeto (licença MIT). Referência de estilo:
+   https://github.com/DMS-ranil/Profile-Templetes — nenhum arquivo foi copiado.
+
+   Regra deste arquivo: o Python entrega os dados já mastigados (status
+   traduzido, data em DD/MM/AAAA, link confirmado ou nada); o template só
+   decide ONDE cada informação aparece. Nenhuma seção inventa dado.
+
+   Seção sem conteúdo não é impressa: README com tabela vazia parece descuido.
+   Por isso todo bloco opcional está dentro de um `{% if ... %}`.
+
+   Atenção ao espaçamento: o gerador usa trim_blocks (a tag e o "\n" depois
+   dela somem) e lstrip_blocks. Cada `{% endfor %}` precisa de linha vazia
+   logo abaixo — sem ela, o Markdown cola o fim da tabela no título seguinte
+   e a tabela deixa de renderizar.
+   ========================================================= #}
+# {{ nome }}
+
+{% if bio %}
+{{ bio }}
+
+{% endif %}
+{% if local %}
+{{ local }}
+
+{% endif %}
+{% if badges %}
+{% for badge in badges %}
+![{{ badge.rotulo }}]({{ badge.url }})
+{% endfor %}
+
+{% endif %}
+> README gerado localmente em {{ gerado_em }}, {{ modo }}.
+
+{% if not destaques and not outros %}
+## Projetos
+
+Nenhum projeto cadastrado ainda. Este README cresce conforme o perfil é
+preenchido: cada projeto, stack e link novo aparece aqui na próxima geração.
+
+Neste projeto, `iniciar` entrevista e `importar` traz os dados públicos do GitHub.
+
+{% endif %}
+{% if destaques %}
+## Projetos em destaque
+
+| Projeto | O que prova | Detalhes |{{ ' Link |' if tem_links else '' }}
+|---|---|---|{{ '---|' if tem_links else '' }}
+{% for projeto in destaques %}
+| {{ projeto.nome }} | {{ projeto.prova }} | {{ projeto.meta }} |{{ ' ' ~ projeto.link_texto ~ ' |' if tem_links else '' }}
+{% endfor %}
+
+{% endif %}
+{% if outros %}
+## Outros projetos
+
+| Projeto | O que prova | Detalhes |{{ ' Link |' if tem_links else '' }}
+|---|---|---|{{ '---|' if tem_links else '' }}
+{% for projeto in outros %}
+| {{ projeto.nome }} | {{ projeto.prova }} | {{ projeto.meta }} |{{ ' ' ~ projeto.link_texto ~ ' |' if tem_links else '' }}
+{% endfor %}
+
+{% endif %}
+{% if stack_consolidada %}
+## Stack consolidada
+
+{% for tecnologia in stack_consolidada %}
+- {{ tecnologia }}
+{% endfor %}
+
+{% endif %}
+{% include "parciais/estatisticas.md.j2" %}
+{% include "parciais/conquistas.md.j2" %}
+{% if graficos %}
+## Gráficos
+
+{% for grafico in graficos %}
+![{{ grafico.titulo }}]({{ grafico.arquivo }})
+
+*{{ grafico.legenda }}*
+
+{% endfor %}
+{% endif %}
+## Links
+
+- GitHub: <https://github.com/{{ github }}>
+{% if site %}
+- Site: <{{ site }}>
+{% endif %}
+{% for link in links %}
+- {{ link.rotulo }}: <{{ link.url }}>
+{% endfor %}
+{% if not modo_perfil %}
+
+## Como este README é gerado
+
+O conteúdo vem de um perfil local, conferido campo por campo antes de virar
+texto. Link e data de atualização são confirmados na API pública do GitHub
+quando há rede; sem confirmação, o campo fica vazio em vez de apontar para um
+endereço inventado.
+
+Este arquivo é gerado na máquina do dono do perfil. Nada foi publicado
+automaticamente: a publicação só acontece depois de duas aprovações.
+{% endif %}
+
+---
+
+Gerado localmente por PerfilAdaptativo

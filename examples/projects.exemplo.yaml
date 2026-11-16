@@ -1,0 +1,40 @@
+# =========================================================
+#  Curadoria de exemplo — formato antigo (chaves em inglês)
+# =========================================================
+#
+# Este arquivo existe para duas coisas:
+#   1. ser o ponto de partida de quem usa o gerador antigo (`generate.py`);
+#   2. provar que o leitor aceita o formato em inglês (`github_user`,
+#      `projects`, `proof`, `featured`), usado antes do formato adaptativo.
+#
+# Os dados são FICTÍCIOS: "ana-exemplo" não existe. Troque pelos seus.
+# Ao rodar com `--offline`, o link aparece vazio e a data não é afirmada —
+# nenhuma informação é inventada quando não há confirmação da API.
+#
+# Para o fluxo completo (coleta, importação, pré-visualização e dupla
+# aprovação), use `python perfil.py iniciar` e o perfil em português descrito
+# em docs/COMO_USAR.md.
+
+github_user: ana-exemplo
+site: https://ana-exemplo.example.com
+bio: "Exemplo de bio em uma linha — troque pela sua"
+# false = só mostra link de repositório que a API confirmou existir.
+# Em modo --offline nenhum link é confirmado, então a célula fica vazia.
+include_unverified_links: false
+
+projects:
+  - repo: exemplo-etl
+    featured: true
+    status: publicado
+    proof: "Pipeline que baixa indicadores públicos, valida e grava em SQLite"
+    stack: ["Python", "ETL", "SQLite"]
+  - repo: exemplo-bot
+    featured: true
+    status: MVP
+    proof: "Bot de Telegram que responde a cotação do dia"
+    stack: ["Python", "Telegram", "API"]
+  - repo: exemplo-painel
+    featured: false
+    status: rascunho
+    proof: "Painel estático com dados de saúde pública"
+    stack: ["HTML", "Dados"]
